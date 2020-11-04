@@ -31,6 +31,8 @@ public class TipoSanguineoController{
 	    public TipoSanguineo cadastrar( @RequestBody TipoSanguineo tipoSanguineo){
 	        return tipoSanguineoRepository.save(tipoSanguineo);
 	    }
+	  
+	  
 	
 
 }
