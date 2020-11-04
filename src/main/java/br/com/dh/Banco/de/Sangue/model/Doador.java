@@ -126,4 +126,6 @@ public class Doador {
     public void setCaminho_img(String caminho_img) {
         this.caminho_img = caminho_img;
     }
+    
+    
 }
