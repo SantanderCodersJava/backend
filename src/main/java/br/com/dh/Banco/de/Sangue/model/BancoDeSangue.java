@@ -1,11 +1,21 @@
 package br.com.dh.Banco.de.Sangue.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
+@Table(name="bancosangue")
 public class BancoDeSangue {
 	
 	@Id
@@ -22,6 +32,42 @@ public class BancoDeSangue {
 	private String cargo;
 	private String senha;
 	
+	@OneToOne(mappedBy = "bancosangue")
+	@JsonIgnoreProperties("bancosangue")
+	private Endereco endereco; 
+	
+	@OneToMany(orphanRemoval = true, mappedBy = "bancosangue")
+    @JsonIgnoreProperties("bancosangue")
+    private List<Agendamento> agendamentos;
+	
+	@OneToMany(mappedBy = "bancosangue")
+	@JsonIgnoreProperties("bancosangue")
+	private List<TipoSanguineo> tipoSanguineo;
+	
+	public List<TipoSanguineo> getTipoSanguineo() {
+		return tipoSanguineo;
+	}
+
+	public void setTipoSanguineo(List<TipoSanguineo> tipoSanguineo) {
+		this.tipoSanguineo = tipoSanguineo;
+	}
+
+	public List<Agendamento> getAgendamentos() {
+		return agendamentos;
+	}
+
+	public void setAgendamentos(List<Agendamento> agendamentos) {
+		this.agendamentos = agendamentos;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
 	public BancoDeSangue() {}
 	
 	public BancoDeSangue(Integer id_banco, String nome, String email_instucional, String cnpj, String telefone, String nome_contato, String email_contato, String telefone_contato, String cargo, String senha ) {
