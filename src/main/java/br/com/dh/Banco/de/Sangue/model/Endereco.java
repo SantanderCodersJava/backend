@@ -4,6 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Endereco {
@@ -21,6 +26,19 @@ public class Endereco {
 	private String cep; 
 	private String latitude; 
 	private String longitude;
+	
+	@ManyToOne
+	@JoinColumn(name="id_doador")
+	private Doador doador;
+	
+	@OneToOne
+	@JoinColumn(name="id_banco")
+	private BancoDeSangue bancosangue;
+	
+	@ManyToOne
+	@JoinColumn(name="id_empresa")
+	private Empresa empresa;
+	
 	
 	public Endereco() {
 		
