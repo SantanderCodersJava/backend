@@ -31,7 +31,16 @@ public class BancoDeSangue {
 	private String telefone_contato;
 	private String cargo;
 	private String senha;
+	private String autorizacao;
 	
+	public String getAutorizacao() {
+		return autorizacao;
+	}
+
+	public void setAutorizacao(String autorizacao) {
+		this.autorizacao = autorizacao;
+	}
+
 	@OneToOne(mappedBy = "bancosangue")
 	@JsonIgnoreProperties("bancosangue")
 	private Endereco endereco; 
@@ -70,7 +79,7 @@ public class BancoDeSangue {
 
 	public BancoDeSangue() {}
 	
-	public BancoDeSangue(Integer id_banco, String nome, String email_instucional, String cnpj, String telefone, String nome_contato, String email_contato, String telefone_contato, String cargo, String senha ) {
+	public BancoDeSangue(Integer id_banco, String nome, String email_instucional, String cnpj, String telefone, String nome_contato, String email_contato, String telefone_contato, String cargo, String senha, String autorizacao ) {
 		this.id_banco = id_banco;
 		this.nome = nome;
 		this.email_instucional = email_instucional;
@@ -81,6 +90,7 @@ public class BancoDeSangue {
 		this.telefone_contato = telefone_contato;
 		this.cargo = cargo;
 		this.senha = senha;
+		this.autorizacao = autorizacao;
 	}
 
 	

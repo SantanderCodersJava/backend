@@ -55,6 +55,7 @@ public class BancoDeSangueController {
 		 bancoParaAtualizar.setTelefone_contato(banco.getTelefone_contato());
 		 bancoParaAtualizar.setCargo(banco.getCargo());
 		 bancoParaAtualizar.setSenha(banco.getSenha());
+		 bancoParaAtualizar.setAutorizacao(banco.getAutorizacao());
 		 
 		 return repository.save(bancoParaAtualizar);
 	 }
