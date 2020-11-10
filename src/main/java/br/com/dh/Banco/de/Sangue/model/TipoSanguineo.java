@@ -53,6 +53,9 @@ public class TipoSanguineo {
 
 	public TipoSanguineo() {}
 
+	public TipoSanguineo(Integer Quantidade_tipo) {
+		this.quantidade_tipo = Quantidade_tipo;
+	}
 
 	public Integer getQuantidade_tipo() {
 		return quantidade_tipo;
