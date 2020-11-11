@@ -13,8 +13,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import br.com.dh.Banco.de.Sangue.service.BancoDeSangueServiceImpl;
 import br.com.dh.Banco.de.Sangue.service.DoadorServiceImpl;
 import br.com.dh.Banco.de.Sangue.service.JwtService;
+import br.com.dh.Banco.de.Sangue.service.JwtServiceBanco;
 
 
 
@@ -26,7 +28,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private DoadorServiceImpl doadorService;
 	
 	@Autowired
+	private BancoDeSangueServiceImpl bancoService;
+	
+	@Autowired
 	private JwtService jwtService;
+	
+	@Autowired
+	private JwtServiceBanco jwtServiceBanco;
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -35,15 +43,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Bean
     public OncePerRequestFilter jwtFilter(){
-        return new JwtAuthFilter(jwtService, doadorService);
+        return new JwtAuthFilter(jwtService, doadorService,jwtServiceBanco, bancoService);
     }
+	
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {	
 	auth
     .userDetailsService(doadorService)
     .passwordEncoder(passwordEncoder());
-}
+    auth
+    .userDetailsService(bancoService)
+    .passwordEncoder(passwordEncoder());
+	}
+	
+
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -53,10 +67,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 			.antMatchers(HttpMethod.POST, "/doadores/**")
 			.permitAll()
+			
+			.antMatchers(HttpMethod.POST, "/banco/**")
+			.permitAll()
 		
 			.antMatchers(HttpMethod.POST, "/doadores")
         		.permitAll()
-        	.anyRequest().authenticated()
+        		
+        	.antMatchers(HttpMethod.POST, "/banco")
+        		.permitAll()
+        		
+        	.anyRequest().authenticated()        	
+        
         
         .and()
         	.sessionManagement()
