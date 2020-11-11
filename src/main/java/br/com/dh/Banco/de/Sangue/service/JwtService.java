@@ -19,7 +19,7 @@ public class JwtService {
 	@Value("${security.jwt.expiracao}")
 	private String expiracao;
 	
-	@Value("${security.jtw.chave-assinatura}")
+	@Value("${security.jwt.chave-assinatura}")
 	private String chaveAssinatura;
 	
 	public String gerarToken(Doador doador) {
