@@ -1,5 +1,6 @@
 package br.com.dh.Banco.de.Sangue.model;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -12,6 +13,14 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import br.com.dh.Banco.de.Sangue.enums.Sangue;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name="bancosangue")
 public class BancoDeSangue {

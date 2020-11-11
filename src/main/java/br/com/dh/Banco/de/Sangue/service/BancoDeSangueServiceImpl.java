@@ -13,7 +13,7 @@ import br.com.dh.Banco.de.Sangue.model.BancoDeSangue;
 import br.com.dh.Banco.de.Sangue.repository.BancoDeSangueRepository;
 
 @Service
-public class BancoServiceImpl implements UserDetailsService {
+public class BancoDeSangueServiceImpl implements UserDetailsService {
 
     @Autowired
     private BancoDeSangueRepository bancoDeSangueRepository;
