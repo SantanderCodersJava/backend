@@ -44,11 +44,13 @@ public class DoadorController {
         doadorParaAtualizar.setCaminho_img(doador.getCaminho_img());
         doadorParaAtualizar.setData_nascimento(doador.getData_nascimento());
         doadorParaAtualizar.setEmail(doador.getEmail());
+        doadorParaAtualizar.setAutorizacao(doador.getAutorizacao());
         doadorParaAtualizar.setRg(doador.getRg());
         doadorParaAtualizar.setSenha(doador.getSenha());
         doadorParaAtualizar.setSexo(doador.getSexo());
         doadorParaAtualizar.setTelefone(doador.getTelefone());
         doadorParaAtualizar.setTipo_sanguineo(doador.getTipo_sanguineo());
+       
 
         // retorno ele atualizado e salvado
         return repository.save(doadorParaAtualizar);

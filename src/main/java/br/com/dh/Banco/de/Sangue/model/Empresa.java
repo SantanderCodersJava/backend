@@ -1,11 +1,15 @@
 package br.com.dh.Banco.de.Sangue.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Empresa {
@@ -24,7 +28,19 @@ public class Empresa {
     private String email_contato;
     private Integer quantidade_colaboradores;
     
-    public Empresa () {}
+    @OneToMany(mappedBy = "empresa")
+    @JsonIgnoreProperties("empresa")
+    private List<Endereco> enderecos; 
+    
+    public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
+
+	public Empresa () {}
 
 	public Empresa(Integer id_empresa, String razao_social, String email_empresa, String cnpj_empresa,
 			String telefone_1, String telefone_2, Date data_fundacao, String inscricao_estadual, String nome_contato,

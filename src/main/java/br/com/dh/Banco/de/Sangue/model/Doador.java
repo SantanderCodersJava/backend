@@ -4,7 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import br.com.dh.Banco.de.Sangue.enums.Sangue;
+
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Doador {
@@ -16,27 +23,57 @@ public class Doador {
     private String rg;
     private Date data_nascimento;
     private String email;
+    private String autorizacao;
     private String cpf;
     private String telefone;
     private String sexo;
-    private String tipo_sanguineo;
+    private Sangue tipo_sanguineo;
     private String senha;
     private String caminho_img;
+   
+    
 
-    public Doador(){}
+	@OneToMany(orphanRemoval = true, mappedBy = "doador")
+    @JsonIgnoreProperties("doador")
+    private List<Endereco> enderecos; 
+    
+    @OneToMany(orphanRemoval = true, mappedBy = "doador")
+    @JsonIgnoreProperties("doador")
+    private List<Agendamento> agendamentos;
+    
 
-    public Doador(Integer id_doador, String nome, String rg, Date data_nascimento, String email, String cpf, String telefone, String sexo, String tipo_sanguineo, String senha, String caminho_img) {
+    public List<Agendamento> getAgendamentos() {
+		return agendamentos;
+	}
+
+	public void setAgendamentos(List<Agendamento> agendamentos) {
+		this.agendamentos = agendamentos;
+	}
+
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
+
+	public Doador(){}
+
+    public Doador(Integer id_doador, String nome, String rg, Date data_nascimento, String email,  String autorizacao, String cpf, String telefone, String sexo, Sangue tipo_sanguineo, String senha, String caminho_img) {
         this.id_doador = id_doador;
         this.nome = nome;
         this.rg = rg;
         this.data_nascimento = data_nascimento;
         this.email = email;
+        this.autorizacao = autorizacao;
         this.cpf = cpf;
         this.telefone = telefone;
         this.sexo = sexo;
         this.tipo_sanguineo = tipo_sanguineo;
         this.senha = senha;
         this.caminho_img = caminho_img;
+       
     }
 
     public Integer getId_doador() {
@@ -103,11 +140,11 @@ public class Doador {
         this.sexo = sexo;
     }
 
-    public String getTipo_sanguineo() {
+    public Sangue getTipo_sanguineo() {
         return tipo_sanguineo;
     }
 
-    public void setTipo_sanguineo(String tipo_sanguineo) {
+    public void setTipo_sanguineo(Sangue tipo_sanguineo) {
         this.tipo_sanguineo = tipo_sanguineo;
     }
 
@@ -126,4 +163,15 @@ public class Doador {
     public void setCaminho_img(String caminho_img) {
         this.caminho_img = caminho_img;
     }
+    
+
+    public String getAutorizacao() {
+		return autorizacao;
+	}
+
+	public void setAutorizacao(String autorizacao) {
+		this.autorizacao = autorizacao;
+	}
+    
+    
 }

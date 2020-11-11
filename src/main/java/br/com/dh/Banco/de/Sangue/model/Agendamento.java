@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Agendamento {
@@ -17,6 +19,16 @@ public class Agendamento {
 	private Date data_agendamento;
 	private boolean status;
 	
+	@ManyToOne
+	@JoinColumn(name="id_doador")
+	private Doador doador;
+	
+	@ManyToOne
+	@JoinColumn(name="id_banco")
+	private BancoDeSangue bancosangue;
+	
+	
+
 	public Agendamento() {}
 	
 	public Agendamento(Integer id_agendamento, Date data_agendamento, boolean status) {
