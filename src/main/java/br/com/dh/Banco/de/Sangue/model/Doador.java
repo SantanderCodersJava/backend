@@ -23,14 +23,17 @@ public class Doador {
     private String rg;
     private Date data_nascimento;
     private String email;
+    private String autorizacao;
     private String cpf;
     private String telefone;
     private String sexo;
     private Sangue tipo_sanguineo;
     private String senha;
     private String caminho_img;
+   
     
-    @OneToMany(orphanRemoval = true, mappedBy = "doador")
+
+	@OneToMany(orphanRemoval = true, mappedBy = "doador")
     @JsonIgnoreProperties("doador")
     private List<Endereco> enderecos; 
     
@@ -57,18 +60,20 @@ public class Doador {
 
 	public Doador(){}
 
-    public Doador(Integer id_doador, String nome, String rg, Date data_nascimento, String email, String cpf, String telefone, String sexo, Sangue tipo_sanguineo, String senha, String caminho_img) {
+    public Doador(Integer id_doador, String nome, String rg, Date data_nascimento, String email,  String autorizacao, String cpf, String telefone, String sexo, Sangue tipo_sanguineo, String senha, String caminho_img) {
         this.id_doador = id_doador;
         this.nome = nome;
         this.rg = rg;
         this.data_nascimento = data_nascimento;
         this.email = email;
+        this.autorizacao = autorizacao;
         this.cpf = cpf;
         this.telefone = telefone;
         this.sexo = sexo;
         this.tipo_sanguineo = tipo_sanguineo;
         this.senha = senha;
         this.caminho_img = caminho_img;
+       
     }
 
     public Integer getId_doador() {
@@ -158,6 +163,15 @@ public class Doador {
     public void setCaminho_img(String caminho_img) {
         this.caminho_img = caminho_img;
     }
+    
+
+    public String getAutorizacao() {
+		return autorizacao;
+	}
+
+	public void setAutorizacao(String autorizacao) {
+		this.autorizacao = autorizacao;
+	}
     
     
 }
