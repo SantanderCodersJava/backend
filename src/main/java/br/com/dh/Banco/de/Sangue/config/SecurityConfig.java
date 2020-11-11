@@ -41,13 +41,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.usersByUsernameQuery("select email,senha from doador where email=?")
 		.authoritiesByUsernameQuery("select email,autorizacao from doador where email=?");
 	}
-	
-@Bean
-public PasswordEncoder passwordEncoder() {
-	return NoOpPasswordEncoder.getInstance();
-}
 
-	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return NoOpPasswordEncoder.getInstance();
+	}
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		//http.csrf().disable()              camada de segurança para acessar a aplicação diretamente através de browser
@@ -58,6 +57,5 @@ public PasswordEncoder passwordEncoder() {
 		.and().formLogin();
 		//.and().httpBasic();
 	}
-	
 	
 }

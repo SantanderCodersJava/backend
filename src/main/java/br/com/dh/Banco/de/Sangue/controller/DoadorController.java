@@ -2,6 +2,7 @@ package br.com.dh.Banco.de.Sangue.controller;
 
 import br.com.dh.Banco.de.Sangue.model.Doador;
 import br.com.dh.Banco.de.Sangue.repository.DoadorRepository;
+import br.com.dh.Banco.de.Sangue.service.DoadorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ public class DoadorController {
 
     @Autowired
     private DoadorRepository repository;
+    private DoadorServiceImpl service;
 
     @GetMapping
     public List<Doador> listarTodos(){
@@ -23,7 +25,7 @@ public class DoadorController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Doador cadastrar( @RequestBody Doador doador){
-        return repository.save(doador);
+        return service.cadastrar(doador);
     }
 
     @DeleteMapping(value = "/{id}")
