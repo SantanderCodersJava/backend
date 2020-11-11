@@ -1,5 +1,8 @@
 package br.com.dh.Banco.de.Sangue.model;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,10 +12,13 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.dh.Banco.de.Sangue.enums.Sangue;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
-import java.util.Date;
-import java.util.List;
-
+@Data
+@AllArgsConstructor
+@Builder
 @Entity
 public class Doador {
 
@@ -23,7 +29,6 @@ public class Doador {
     private String rg;
     private Date data_nascimento;
     private String email;
-    private String autorizacao;
     private String cpf;
     private String telefone;
     private String sexo;
@@ -60,13 +65,12 @@ public class Doador {
 
 	public Doador(){}
 
-    public Doador(Integer id_doador, String nome, String rg, Date data_nascimento, String email,  String autorizacao, String cpf, String telefone, String sexo, Sangue tipo_sanguineo, String senha, String caminho_img) {
+    public Doador(Integer id_doador, String nome, String rg, Date data_nascimento, String email, String cpf, String telefone, String sexo, Sangue tipo_sanguineo, String senha, String caminho_img) {
         this.id_doador = id_doador;
         this.nome = nome;
         this.rg = rg;
         this.data_nascimento = data_nascimento;
         this.email = email;
-        this.autorizacao = autorizacao;
         this.cpf = cpf;
         this.telefone = telefone;
         this.sexo = sexo;
@@ -162,16 +166,6 @@ public class Doador {
 
     public void setCaminho_img(String caminho_img) {
         this.caminho_img = caminho_img;
-    }
-    
-
-    public String getAutorizacao() {
-		return autorizacao;
-	}
-
-	public void setAutorizacao(String autorizacao) {
-		this.autorizacao = autorizacao;
-	}
-    
+    }       
     
 }

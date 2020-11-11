@@ -13,6 +13,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import br.com.dh.Banco.de.Sangue.service.DoadorServiceImpl;
+import br.com.dh.Banco.de.Sangue.service.JwtService;
+
 public class JwtAuthFilter extends OncePerRequestFilter {
 	
 	private JwtService jwtService;
@@ -37,7 +40,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             boolean isValid = jwtService.tokenValido(token);
 
             if(isValid){
-                String emailDoador = jwtService.obterLoginUsuario(token);
+                String emailDoador = jwtService.obterLoginDoador(token);
                 UserDetails doador = doadorService.loadUserByUsername(emailDoador);
                 UsernamePasswordAuthenticationToken user = new
                         UsernamePasswordAuthenticationToken(doador,null,
