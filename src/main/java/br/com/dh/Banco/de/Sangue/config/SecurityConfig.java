@@ -51,9 +51,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.csrf().disable()              //camada de segurança para acessar a aplicação diretamente através de browser
 		.authorizeRequests()
 		
-		.antMatchers(HttpMethod.POST, "/doadores")
-        	.permitAll()
-        .anyRequest().authenticated()
+			.antMatchers(HttpMethod.POST, "/doadores/**")
+			.permitAll()
+		
+			.antMatchers(HttpMethod.POST, "/doadores")
+        		.permitAll()
+        	.anyRequest().authenticated()
         
         .and()
         	.sessionManagement()

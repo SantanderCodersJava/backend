@@ -47,7 +47,7 @@ public class BancoDeSangueController {
 		 
 		 bancoParaAtualizar.setId_banco(id);
 		 bancoParaAtualizar.setNome(banco.getNome());
-		 bancoParaAtualizar.setEmail_instucional(banco.getEmail_instucional());
+		 bancoParaAtualizar.setEmail(banco.getEmail());
 		 bancoParaAtualizar.setCnpj(banco.getCnpj());
 		 bancoParaAtualizar.setTelefone(banco.getTelefone());
 		 bancoParaAtualizar.setNome_contato(banco.getNome_contato());

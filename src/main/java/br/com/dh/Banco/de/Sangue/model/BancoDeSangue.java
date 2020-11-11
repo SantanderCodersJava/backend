@@ -21,7 +21,7 @@ public class BancoDeSangue {
 	private Integer id_banco;
 	
 	private String nome;
-	private String email_instucional;
+	private String email;
 	private String cnpj;
 	private String telefone;
 	private String nome_contato;
@@ -70,10 +70,10 @@ public class BancoDeSangue {
 
 	public BancoDeSangue() {}
 	
-	public BancoDeSangue(Integer id_banco, String nome, String email_instucional, String cnpj, String telefone, String nome_contato, String email_contato, String telefone_contato, String cargo, String senha ) {
+	public BancoDeSangue(Integer id_banco, String nome, String email, String cnpj, String telefone, String nome_contato, String email_contato, String telefone_contato, String cargo, String senha ) {
 		this.id_banco = id_banco;
 		this.nome = nome;
-		this.email_instucional = email_instucional;
+		this.email = email;
 		this.cnpj = cnpj;
 		this.telefone = telefone;
 		this.nome_contato = nome_contato;
@@ -100,12 +100,12 @@ public class BancoDeSangue {
 		this.nome = nome;
 	}
 
-	public String getEmail_instucional() {
-		return email_instucional;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEmail_instucional(String email_instucional) {
-		this.email_instucional = email_instucional;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getCnpj() {
