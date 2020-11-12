@@ -16,11 +16,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
 public class JwtService {
-	@Value("${security.jwt.expiracao}")
-	private String expiracao;
-	
-	@Value("${security.jtw.chave-assinatura}")
-	private String chaveAssinatura;
+
+	private final String expiracao = "30";
+
+	private final String chaveAssinatura = "YmFuY29zYW5ndWU=";
 	
 	public String gerarToken(Doador doador) {
 		long expString = Long.valueOf(expiracao);

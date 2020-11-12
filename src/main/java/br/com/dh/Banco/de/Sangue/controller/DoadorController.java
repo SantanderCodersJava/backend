@@ -15,6 +15,8 @@ public class DoadorController {
 
     @Autowired
     private DoadorRepository repository;
+
+    @Autowired
     private DoadorServiceImpl service;
 
     @GetMapping
