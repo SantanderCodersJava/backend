@@ -45,8 +45,7 @@ public class BancoDeSangueController {
 	@ResponseStatus(HttpStatus.CREATED)
     @PostMapping
 	public BancoDeSangue cadastrar (@RequestBody BancoDeSangue banco) {
-		return repository.save(banco);
-		
+		return bancoSangueService.cadastrar(banco);
 	}
 	
 	@PostMapping("/auth")
