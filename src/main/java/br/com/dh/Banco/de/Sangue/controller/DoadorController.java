@@ -1,11 +1,18 @@
 package br.com.dh.Banco.de.Sangue.controller;
 
+import br.com.dh.Banco.de.Sangue.dto.CredenciaisDTO;
+import br.com.dh.Banco.de.Sangue.dto.TokenDTO;
+import br.com.dh.Banco.de.Sangue.exception.SenhaInvalidaException;
 import br.com.dh.Banco.de.Sangue.model.Doador;
 import br.com.dh.Banco.de.Sangue.repository.DoadorRepository;
 import br.com.dh.Banco.de.Sangue.service.DoadorServiceImpl;
+import br.com.dh.Banco.de.Sangue.service.JwtService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -15,9 +22,18 @@ public class DoadorController {
 
     @Autowired
     private DoadorRepository repository;
+<<<<<<< HEAD
 
     @Autowired
     private DoadorServiceImpl service;
+=======
+    
+    @Autowired
+    private DoadorServiceImpl doadorService;
+    
+    @Autowired
+    private JwtService jwtService;
+>>>>>>> c8ced3dceb5328b31166030dd310c47f71fd3933
 
     @GetMapping
     public List<Doador> listarTodos(){
@@ -27,7 +43,22 @@ public class DoadorController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Doador cadastrar( @RequestBody Doador doador){
-        return service.cadastrar(doador);
+        return doadorService.cadastrar(doador);
+    }
+    
+    @PostMapping("/auth")
+    public TokenDTO autenticar(@RequestBody CredenciaisDTO credenciaisDTO){
+        try {
+            Doador doador = Doador.builder()
+                    .email(credenciaisDTO.getEmail())
+                    .senha(credenciaisDTO.getSenha())
+                    .build();
+            doadorService.autenticar(doador);
+            String token = jwtService.gerarToken(doador);
+            return new TokenDTO(doador.getEmail(), token);
+        } catch (UsernameNotFoundException | SenhaInvalidaException e){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
     }
 
     @DeleteMapping(value = "/{id}")
@@ -48,7 +79,6 @@ public class DoadorController {
         doadorParaAtualizar.setCaminho_img(doador.getCaminho_img());
         doadorParaAtualizar.setData_nascimento(doador.getData_nascimento());
         doadorParaAtualizar.setEmail(doador.getEmail());
-        doadorParaAtualizar.setAutorizacao(doador.getAutorizacao());
         doadorParaAtualizar.setRg(doador.getRg());
         doadorParaAtualizar.setSenha(doador.getSenha());
         doadorParaAtualizar.setSexo(doador.getSexo());

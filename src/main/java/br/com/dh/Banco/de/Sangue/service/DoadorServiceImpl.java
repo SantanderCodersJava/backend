@@ -1,5 +1,6 @@
 package br.com.dh.Banco.de.Sangue.service;
 
+import br.com.dh.Banco.de.Sangue.exception.SenhaInvalidaException;
 import br.com.dh.Banco.de.Sangue.model.Doador;
 import br.com.dh.Banco.de.Sangue.repository.DoadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,6 @@ public class DoadorServiceImpl implements UserDetailsService {
             return user;
         }
 
-        throw new RuntimeException();
+        throw new SenhaInvalidaException();
     }
 }

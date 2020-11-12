@@ -1,19 +1,26 @@
 package br.com.dh.Banco.de.Sangue.model;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import br.com.dh.Banco.de.Sangue.enums.Sangue;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name="bancosangue")
 public class BancoDeSangue {
@@ -23,7 +30,7 @@ public class BancoDeSangue {
 	private Integer id_banco;
 	
 	private String nome;
-	private String email_instucional;
+	private String email;
 	private String cnpj;
 	private String telefone;
 	private String nome_contato;
@@ -31,15 +38,8 @@ public class BancoDeSangue {
 	private String telefone_contato;
 	private String cargo;
 	private String senha;
-	private String autorizacao;
+		
 	
-	public String getAutorizacao() {
-		return autorizacao;
-	}
-
-	public void setAutorizacao(String autorizacao) {
-		this.autorizacao = autorizacao;
-	}
 
 	@OneToOne(mappedBy = "bancosangue")
 	@JsonIgnoreProperties("bancosangue")
@@ -79,10 +79,10 @@ public class BancoDeSangue {
 
 	public BancoDeSangue() {}
 	
-	public BancoDeSangue(Integer id_banco, String nome, String email_instucional, String cnpj, String telefone, String nome_contato, String email_contato, String telefone_contato, String cargo, String senha, String autorizacao ) {
+	public BancoDeSangue(Integer id_banco, String nome, String email, String cnpj, String telefone, String nome_contato, String email_contato, String telefone_contato, String cargo, String senha ) {
 		this.id_banco = id_banco;
 		this.nome = nome;
-		this.email_instucional = email_instucional;
+		this.email = email;
 		this.cnpj = cnpj;
 		this.telefone = telefone;
 		this.nome_contato = nome_contato;
@@ -90,7 +90,6 @@ public class BancoDeSangue {
 		this.telefone_contato = telefone_contato;
 		this.cargo = cargo;
 		this.senha = senha;
-		this.autorizacao = autorizacao;
 	}
 
 	
@@ -110,12 +109,12 @@ public class BancoDeSangue {
 		this.nome = nome;
 	}
 
-	public String getEmail_instucional() {
-		return email_instucional;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEmail_instucional(String email_instucional) {
-		this.email_instucional = email_instucional;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getCnpj() {
@@ -172,7 +171,6 @@ public class BancoDeSangue {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}
-	
+	}	
 
 }
