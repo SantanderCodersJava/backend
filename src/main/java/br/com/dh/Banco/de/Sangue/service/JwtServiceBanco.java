@@ -8,28 +8,21 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import br.com.dh.Banco.de.Sangue.model.Doador;
+import br.com.dh.Banco.de.Sangue.model.BancoDeSangue;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
-public class JwtService {
-<<<<<<< HEAD
-
-	private final String expiracao = "30";
-
-	private final String chaveAssinatura = "YmFuY29zYW5ndWU=";
-=======
+public class JwtServiceBanco {
 	@Value("${security.jwt.expiracao}")
 	private String expiracao;
 	
 	@Value("${security.jwt.chave-assinatura}")
 	private String chaveAssinatura;
->>>>>>> c8ced3dceb5328b31166030dd310c47f71fd3933
 	
-	public String gerarToken(Doador doador) {
+	public String gerarToken(BancoDeSangue bancoSangue) {
 		long expString = Long.valueOf(expiracao);
 		LocalDateTime dataHoraExpiracao = LocalDateTime.now().plusMinutes(expString);
 		Instant instant = dataHoraExpiracao.atZone(ZoneId.systemDefault()).toInstant();
@@ -37,7 +30,7 @@ public class JwtService {
 		
 		return Jwts
 				.builder()
-				.setSubject(doador.getEmail())
+				.setSubject(bancoSangue.getEmail())
 				.setExpiration(data)
 				.signWith(SignatureAlgorithm.HS512, chaveAssinatura)
 				.compact();
@@ -63,7 +56,7 @@ public class JwtService {
 		}
 	}
 	
-	public String obterLoginDoador(String token) throws ExpiredJwtException {
+	public String obterLoginBancoDeSangue(String token) throws ExpiredJwtException {
 		return (String) obterClaims(token).getSubject();
 	}
 	

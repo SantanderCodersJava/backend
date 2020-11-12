@@ -22,12 +22,18 @@ public class DoadorController {
 
     @Autowired
     private DoadorRepository repository;
+<<<<<<< HEAD
+
+    @Autowired
+    private DoadorServiceImpl service;
+=======
     
     @Autowired
     private DoadorServiceImpl doadorService;
     
     @Autowired
     private JwtService jwtService;
+>>>>>>> c8ced3dceb5328b31166030dd310c47f71fd3933
 
     @GetMapping
     public List<Doador> listarTodos(){
