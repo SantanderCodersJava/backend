@@ -3,6 +3,7 @@ package br.com.dh.Banco.de.Sangue.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -38,7 +39,7 @@ public class Doador {
    
     
 
-	@OneToMany(orphanRemoval = true, mappedBy = "doador")
+	@OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "doador")
     @JsonIgnoreProperties("doador")
     private List<Endereco> enderecos; 
     

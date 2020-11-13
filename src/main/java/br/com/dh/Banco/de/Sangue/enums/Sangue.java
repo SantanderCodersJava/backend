@@ -5,6 +5,8 @@ public enum Sangue {
 	APOSITIVO("A-positivo"),
 	ANEGATIVO("A-negativo"),
 	BPOSITIVO("B-positivo"),
+	BNEGATIVO("B-negativo"),
+	
 	ABPOSITIVO("AB-positivo"),
 	ABNEGATIVO("AB-negativo"),
 	OPOSITIVO("O-positivo"),
