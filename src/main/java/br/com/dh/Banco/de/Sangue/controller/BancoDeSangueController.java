@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ import br.com.dh.Banco.de.Sangue.repository.BancoDeSangueRepository;
 import br.com.dh.Banco.de.Sangue.service.BancoDeSangueServiceImpl;
 import br.com.dh.Banco.de.Sangue.service.JwtServiceBanco;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/banco")
 public class BancoDeSangueController {

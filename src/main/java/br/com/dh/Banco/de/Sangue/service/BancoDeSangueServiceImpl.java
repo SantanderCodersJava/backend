@@ -34,7 +34,7 @@ public class BancoDeSangueServiceImpl implements UserDetailsService {
                 .orElseThrow( ()-> new UsernameNotFoundException("Cadastro não encontrado na base de dados"));
 
         // da a permissão ao banco de usuario comum
-        String[] permissaoBanco = new String[]{"USER"};
+        String[] permissaoBanco = new String[]{"ADMIN"};
 
         // retorna um UserDetail com os dados do banco
         return User

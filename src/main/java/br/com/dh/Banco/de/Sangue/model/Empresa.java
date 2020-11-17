@@ -26,7 +26,7 @@ public class Empresa {
     private String inscricao_estadual;
     private String nome_contato;
     private String email_contato;
-    private Integer quantidade_colaboradores;
+    private String quantidade_colaboradores;
     
     @OneToMany(mappedBy = "empresa")
     @JsonIgnoreProperties("empresa")
@@ -44,7 +44,7 @@ public class Empresa {
 
 	public Empresa(Integer id_empresa, String razao_social, String email_empresa, String cnpj_empresa,
 			String telefone_1, String telefone_2, Date data_fundacao, String inscricao_estadual, String nome_contato,
-			String email_contato, Integer quantidade_colaboradores) {
+			String email_contato, String quantidade_colaboradores) {
 		this.id_empresa = id_empresa;
 		this.razao_social = razao_social;
 		this.email_empresa = email_empresa;
@@ -138,11 +138,11 @@ public class Empresa {
 		this.email_contato = email_contato;
 	}
 
-	public Integer getQuantidade_colaboradores() {
+	public String getQuantidade_colaboradores() {
 		return quantidade_colaboradores;
 	}
 
-	public void setQuantidade_colaboradores(Integer quantidade_colaboradores) {
+	public void setQuantidade_colaboradores(String quantidade_colaboradores) {
 		this.quantidade_colaboradores = quantidade_colaboradores;
 	} 
     

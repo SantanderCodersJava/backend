@@ -20,7 +20,6 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/doadores")
 @CrossOrigin
-
 public class DoadorController {
 
     @Autowired
