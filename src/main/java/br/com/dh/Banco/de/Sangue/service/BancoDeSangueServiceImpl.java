@@ -24,6 +24,7 @@ public class BancoDeSangueServiceImpl implements UserDetailsService {
     public BancoDeSangue cadastrar(BancoDeSangue bancoSangue) {
         String senhaCriptografada = passwordEncoder.encode(bancoSangue.getSenha());
         bancoSangue.setSenha(senhaCriptografada);
+        bancoSangue.setEndereco(bancoSangue.getEndereco());
         return bancoDeSangueRepository.save(bancoSangue);
     }
 

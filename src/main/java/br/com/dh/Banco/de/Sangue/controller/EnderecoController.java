@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,9 @@ public class EnderecoController {
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 	
+	@Autowired
+    private PasswordEncoder passwordEncoder;
+	
 	@GetMapping
 	public List<Endereco> listarTodos() {
 		return enderecoRepository.findAll();
@@ -35,6 +39,12 @@ public class EnderecoController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
 	public Endereco cadastrar(@RequestBody Endereco endereco){
+			endereco.setDoador(endereco.getDoador());
+			endereco.setEmpresa(endereco.getEmpresa());
+			
+			String senhaCriptografada = passwordEncoder.encode(endereco.getBancosangue().getSenha());
+		    endereco.getBancosangue().setSenha(senhaCriptografada);		        
+			endereco.setBancosangue(endereco.getBancosangue());
 	        return enderecoRepository.save(endereco);
 	}
 

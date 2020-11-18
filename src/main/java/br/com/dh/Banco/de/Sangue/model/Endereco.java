@@ -1,5 +1,6 @@
 package br.com.dh.Banco.de.Sangue.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,16 +26,16 @@ public class Endereco {
 	private String latitude; 
 	private String longitude;
 	
-	@ManyToOne
-	@JoinColumn(name="id_doador")
+	@ManyToOne( cascade = CascadeType.ALL )
+	@JoinColumn(name="id_doador", referencedColumnName="id_doador")
 	private Doador doador;
 	
-	@OneToOne
-	@JoinColumn(name="id_banco")
+	@OneToOne( cascade = CascadeType.ALL )
+	@JoinColumn(name="id_banco", referencedColumnName = "id_banco")
 	private BancoDeSangue bancosangue;
 	
-	@ManyToOne
-	@JoinColumn(name="id_empresa")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="id_empresa", referencedColumnName="id_empresa")
 	private Empresa empresa;
 	
 	
@@ -117,6 +118,32 @@ public class Endereco {
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
+
+	public Doador getDoador() {
+		return doador;
+	}
+
+	public void setDoador(Doador doador) {
+		this.doador = doador;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
+	public BancoDeSangue getBancosangue() {
+		return bancosangue;
+	}
+
+	public void setBancosangue(BancoDeSangue bancosangue) {
+		this.bancosangue = bancosangue;
+	}
+	
+	
 	
 	
 }

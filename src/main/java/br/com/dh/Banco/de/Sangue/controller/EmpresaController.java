@@ -40,6 +40,7 @@ public class EmpresaController {
 	@ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Empresa cadastrar(@RequestBody Empresa empresa){
+		empresa.setEnderecos(empresa.getEnderecos());
         return repository.save(empresa);
     }
 	

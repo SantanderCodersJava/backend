@@ -23,6 +23,7 @@ public class DoadorServiceImpl implements UserDetailsService {
     public Doador cadastrar(Doador doador) {
         String senhaCriptografada = passwordEncoder.encode(doador.getSenha());
         doador.setSenha(senhaCriptografada);
+        doador.setEnderecos(doador.getEnderecos());
         return doadorRepository.save(doador);
     }
 

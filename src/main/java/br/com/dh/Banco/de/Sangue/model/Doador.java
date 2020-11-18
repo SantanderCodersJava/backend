@@ -39,7 +39,7 @@ public class Doador {
    
     
 
-	@OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "doador")
+	@OneToMany(orphanRemoval = true, mappedBy = "doador")
     @JsonIgnoreProperties("doador")
     private List<Endereco> enderecos; 
     
