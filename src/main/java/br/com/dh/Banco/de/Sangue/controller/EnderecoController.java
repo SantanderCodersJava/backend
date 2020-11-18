@@ -39,13 +39,16 @@ public class EnderecoController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
 	public Endereco cadastrar(@RequestBody Endereco endereco){
-			endereco.setDoador(endereco.getDoador());
-			endereco.setEmpresa(endereco.getEmpresa());
-			
+		endereco.setDoador(endereco.getDoador());
+		endereco.setEmpresa(endereco.getEmpresa());
+		
+		if(endereco.getBancosangue() != null) {
 			String senhaCriptografada = passwordEncoder.encode(endereco.getBancosangue().getSenha());
 		    endereco.getBancosangue().setSenha(senhaCriptografada);		        
-			endereco.setBancosangue(endereco.getBancosangue());
-	        return enderecoRepository.save(endereco);
+		}
+		
+		endereco.setBancosangue(endereco.getBancosangue());
+        return enderecoRepository.save(endereco);
 	}
 
 	@DeleteMapping(value = "/{id}")
