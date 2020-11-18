@@ -7,13 +7,18 @@ import br.com.dh.Banco.de.Sangue.model.Doador;
 import br.com.dh.Banco.de.Sangue.repository.DoadorRepository;
 import br.com.dh.Banco.de.Sangue.service.DoadorServiceImpl;
 import br.com.dh.Banco.de.Sangue.service.JwtService;
+import br.com.dh.Banco.de.Sangue.utils.FileUploadUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 
@@ -55,6 +60,29 @@ public class DoadorController {
         } catch (UsernameNotFoundException | SenhaInvalidaException e){
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
+    }
+    
+    @CrossOrigin
+    @PostMapping("/upload")
+    public String saveFile(@RequestParam("image") MultipartFile file) {
+    	String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+    	String uploadDir = "files";
+    	Date date = new Date();
+    	String filePrefix = date.getTime() + "-";
+    	
+    	fileName = filePrefix + fileName;
+    	
+    	
+    	try {
+    		FileUploadUtil.saveFile(uploadDir, fileName, file);
+    	}
+    	catch(IOException e) {
+    		System.out.println("O arquivo não foi salvo" + e);
+    		return "Error: " + e; 
+    	}
+    	
+    	System.out.println("O arquivo foi salvo");
+    	return uploadDir + "/" + fileName;
     }
 
     @DeleteMapping(value = "/{id}")

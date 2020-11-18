@@ -26,7 +26,6 @@ import br.com.dh.Banco.de.Sangue.service.JwtServiceBanco;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-
 	private DoadorServiceImpl doadorService;
 	
 	@Autowired
@@ -76,7 +75,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.POST, "/doadores")
         		.permitAll()
         	.antMatchers(HttpMethod.POST, "/banco")
-        		.permitAll()       		
+        		.permitAll()       
+        	.antMatchers(HttpMethod.POST, "/empresas/**")
+        		.permitAll()  
         		
         	.antMatchers("/empresas")
         		.permitAll()   
