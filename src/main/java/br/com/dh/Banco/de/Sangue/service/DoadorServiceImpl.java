@@ -1,8 +1,13 @@
 package br.com.dh.Banco.de.Sangue.service;
 
+import br.com.dh.Banco.de.Sangue.dto.ForgottenPasswordDTO;
 import br.com.dh.Banco.de.Sangue.exception.SenhaInvalidaException;
 import br.com.dh.Banco.de.Sangue.model.Doador;
 import br.com.dh.Banco.de.Sangue.repository.DoadorRepository;
+import br.com.dh.Banco.de.Sangue.utils.Mail;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +24,12 @@ public class DoadorServiceImpl implements UserDetailsService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private JwtService jwtService;
+    
+    @Autowired
+    private EmailService emailService;
 
     public Doador cadastrar(Doador doador) {
         String senhaCriptografada = passwordEncoder.encode(doador.getSenha());
@@ -54,5 +65,18 @@ public class DoadorServiceImpl implements UserDetailsService {
         }
 
         throw new SenhaInvalidaException();
+    }
+    
+    public void recoverPassword(ForgottenPasswordDTO dto) {
+    	Optional<Doador> userOpt = doadorRepository.findByEmail(dto.getEmail());
+    	if(userOpt.isPresent()) {
+    		Doador doador = userOpt.get();
+    		String token = jwtService.gerarToken(doador);
+    		
+    		Mail mail = new Mail();
+    		mail.setTo(dto.getEmail());
+    		mail.setSubject("Recuperação de senha - Doo Amor");
+    		emailService.sendEmail(mail, token);
+    	}
     }
 }

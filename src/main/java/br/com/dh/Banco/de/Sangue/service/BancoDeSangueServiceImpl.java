@@ -1,5 +1,7 @@
 package br.com.dh.Banco.de.Sangue.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,9 +10,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.com.dh.Banco.de.Sangue.dto.ForgottenPasswordDTO;
 import br.com.dh.Banco.de.Sangue.exception.SenhaInvalidaException;
 import br.com.dh.Banco.de.Sangue.model.BancoDeSangue;
 import br.com.dh.Banco.de.Sangue.repository.BancoDeSangueRepository;
+import br.com.dh.Banco.de.Sangue.utils.Mail;
 
 @Service
 public class BancoDeSangueServiceImpl implements UserDetailsService {
@@ -20,6 +24,12 @@ public class BancoDeSangueServiceImpl implements UserDetailsService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private JwtServiceBanco jwtServiceBanco;
+    
+    @Autowired
+    private EmailService emailService;
 
     public BancoDeSangue cadastrar(BancoDeSangue bancoSangue) {
         String senhaCriptografada = passwordEncoder.encode(bancoSangue.getSenha());
@@ -55,5 +65,18 @@ public class BancoDeSangueServiceImpl implements UserDetailsService {
         }
 
         throw new SenhaInvalidaException();
+    }
+    
+    public void recoverPassword(ForgottenPasswordDTO dto) {
+    	Optional<BancoDeSangue> userOpt = bancoDeSangueRepository.findByEmail(dto.getEmail());
+    	if(userOpt.isPresent()) {
+    		BancoDeSangue banco = userOpt.get();
+    		String token = jwtServiceBanco.gerarToken(banco);
+    		
+    		Mail mail = new Mail();
+    		mail.setTo(dto.getEmail());
+    		mail.setSubject("Recuperação de senha - Doo Amor");
+    		emailService.sendEmail(mail, token);
+    	}
     }
 }
