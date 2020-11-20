@@ -9,7 +9,8 @@ public enum Sangue {
 	ABPOSITIVO("AB-positivo"),
 	ABNEGATIVO("AB-negativo"),
 	OPOSITIVO("O-positivo"),
-	ONEGATIVO("O-negativo");
+	ONEGATIVO("O-negativo"),
+	NAOSEI("nao-sei");
 
 	private String tipoDeSangue;
 	
