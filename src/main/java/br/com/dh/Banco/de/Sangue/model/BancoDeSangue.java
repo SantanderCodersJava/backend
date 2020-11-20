@@ -39,7 +39,8 @@ public class BancoDeSangue {
 	private String telefone_contato;
 	private String cargo;
 	private String senha;
-		
+	private String caminho_img;
+	   
 	
 
 	@OneToOne(mappedBy = "bancosangue")
