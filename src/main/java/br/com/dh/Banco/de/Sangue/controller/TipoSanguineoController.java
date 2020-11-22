@@ -21,8 +21,8 @@ import br.com.dh.Banco.de.Sangue.repository.TipoSanguineoRepository;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "/tiposanguineo")
-public class TipoSanguineoController{
-	
+public class TipoSanguineoController {
+
 	@Autowired
 	private TipoSanguineoRepository repository;
 
@@ -30,24 +30,21 @@ public class TipoSanguineoController{
 	public List<TipoSanguineo> listarTodos() {
 		return repository.findAll();
 	}
-	
-	  @ResponseStatus(HttpStatus.CREATED)
-	    @PostMapping
-	    public TipoSanguineo cadastrar( @RequestBody TipoSanguineo tipoSanguineo){
-	        return repository.save(tipoSanguineo);
-	    }
-	  
-	  @PutMapping(value = "/{id}")
-	  public TipoSanguineo atualizar(@PathVariable Sangue id,@RequestBody TipoSanguineo tipoSanguineo) {
-		  
-		  TipoSanguineo tipoSanguineoParaAtualizar = repository.findById(id).get();
-		  
-		  tipoSanguineoParaAtualizar.setQuantidade_tipo(tipoSanguineo.getQuantidade_tipo());
-		
-		 
-		  return repository.save(tipoSanguineoParaAtualizar);
-	  }
-	  
-	
+
+	@ResponseStatus(HttpStatus.CREATED)
+	@PostMapping
+	public TipoSanguineo cadastrar(@RequestBody TipoSanguineo tipoSanguineo) {
+		return repository.save(tipoSanguineo);
+	}
+
+	@PutMapping(value = "/{id}")
+	public TipoSanguineo atualizar(@PathVariable Sangue id, @RequestBody TipoSanguineo tipoSanguineo) {
+
+		TipoSanguineo tipoSanguineoParaAtualizar = repository.findById(id).get();
+
+		tipoSanguineoParaAtualizar.setQuantidadeTipo(tipoSanguineo.getQuantidadeTipo());
+
+		return repository.save(tipoSanguineoParaAtualizar);
+	}
 
 }

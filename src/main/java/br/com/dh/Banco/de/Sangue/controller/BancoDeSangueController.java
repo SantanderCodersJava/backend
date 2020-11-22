@@ -35,85 +35,81 @@ import br.com.dh.Banco.de.Sangue.utils.FileUploadUtil;
 @RestController
 @RequestMapping(value = "/banco")
 public class BancoDeSangueController {
-	
+
 	@Autowired
 	private BancoDeSangueRepository repository;
-	
+
 	@Autowired
-    private BancoDeSangueServiceImpl bancoSangueService;
-    
-    @Autowired
-    private JwtServiceBanco jwtService;
-	
+	private BancoDeSangueServiceImpl bancoSangueService;
+
+	@Autowired
+	private JwtServiceBanco jwtService;
+
 	@GetMapping
-	public List <BancoDeSangue> listarTodos(){
-		return repository.findAll();	
+	public List<BancoDeSangue> listarTodos() {
+		return repository.findAll();
 	}
-	
+
 	@ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
-	public BancoDeSangue cadastrar (@RequestBody BancoDeSangue banco) {
+	@PostMapping
+	public BancoDeSangue cadastrar(@RequestBody BancoDeSangue banco) {
 		return bancoSangueService.cadastrar(banco);
 	}
-	
-	@PostMapping("/auth")
-    public TokenDTO autenticar(@RequestBody CredenciaisDTO credenciaisDTO){
-        try {
-            BancoDeSangue banco = BancoDeSangue.builder()
-                    .email(credenciaisDTO.getEmail())
-                    .senha(credenciaisDTO.getSenha())
-                    .build();
-            bancoSangueService.autenticar(banco);
-            String token = jwtService.gerarToken(banco);
-            return new TokenDTO(banco.getEmail(), token);
-        } catch (UsernameNotFoundException | SenhaInvalidaException e){
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-        }
-    }
-	
 
-    @CrossOrigin
-    @PostMapping("/upload")
-    public String saveFile(@RequestParam("image") MultipartFile file) {
-    	String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-    	String uploadDir = "files";
-    	Date date = new Date();
-    	String filePrefix = date.getTime() + "-";
-    	
-    	fileName = filePrefix + fileName;
-    	
-    	try {
-    		FileUploadUtil.saveFile(uploadDir, fileName, file);
-    	}
-    	catch(IOException e) {
-    		System.out.println("O arquivo não foi salvo" + e);
-    		return "Error: " + e; 
-    	}
-    	
-    	System.out.println("O arquivo foi salvo");
-    	return uploadDir + "/" + fileName;
-    }
-	
-	 @DeleteMapping(value = "/{id}")
-	 public void deletar(@PathVariable Integer id){
-		 repository.deleteById(id);
+	@PostMapping("/auth")
+	public TokenDTO autenticar(@RequestBody CredenciaisDTO credenciaisDTO) {
+		try {
+			BancoDeSangue banco = BancoDeSangue.builder().email(credenciaisDTO.getEmail())
+					.senha(credenciaisDTO.getSenha()).build();
+			bancoSangueService.autenticar(banco);
+			String token = jwtService.gerarToken(banco);
+			return new TokenDTO(banco.getEmail(), token);
+		} catch (UsernameNotFoundException | SenhaInvalidaException e) {
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+		}
 	}
-	 
-	 @PutMapping(value = "/{id}")
-	 public BancoDeSangue atualizar(@PathVariable Integer id,@RequestBody BancoDeSangue banco){
-		 BancoDeSangue bancoParaAtualizar = repository.findById(id).get();
-		 
-		 bancoParaAtualizar.setId_banco(id);
-		 bancoParaAtualizar.setNome(banco.getNome());
-		 bancoParaAtualizar.setEmail(banco.getEmail());
-		 bancoParaAtualizar.setCnpj(banco.getCnpj());
-		 bancoParaAtualizar.setTelefone(banco.getTelefone());
-		 bancoParaAtualizar.setNome_contato(banco.getNome_contato());
-		 bancoParaAtualizar.setEmail_contato(banco.getEmail_contato());
-		 bancoParaAtualizar.setTelefone_contato(banco.getTelefone_contato());
-		 bancoParaAtualizar.setCargo(banco.getCargo());
-		 bancoParaAtualizar.setSenha(banco.getSenha());
-		 
-		 return repository.save(bancoParaAtualizar);
-	 }
+
+	@CrossOrigin
+	@PostMapping("/upload")
+	public String saveFile(@RequestParam("image") MultipartFile file) {
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		String uploadDir = "files";
+		Date date = new Date();
+		String filePrefix = date.getTime() + "-";
+
+		fileName = filePrefix + fileName;
+
+		try {
+			FileUploadUtil.saveFile(uploadDir, fileName, file);
+		} catch (IOException e) {
+			System.out.println("O arquivo não foi salvo" + e);
+			return "Error: " + e;
+		}
+
+		System.out.println("O arquivo foi salvo");
+		return uploadDir + "/" + fileName;
+	}
+
+	@DeleteMapping(value = "/{id}")
+	public void deletar(@PathVariable Integer id) {
+		repository.deleteById(id);
+	}
+
+	@PutMapping(value = "/{id}")
+	public BancoDeSangue atualizar(@PathVariable Integer id, @RequestBody BancoDeSangue banco) {
+		BancoDeSangue bancoParaAtualizar = repository.findById(id).get();
+
+		bancoParaAtualizar.setId(id);
+		bancoParaAtualizar.setNome(banco.getNome());
+		bancoParaAtualizar.setEmail(banco.getEmail());
+		bancoParaAtualizar.setCnpj(banco.getCnpj());
+		bancoParaAtualizar.setTelefone(banco.getTelefone());
+		bancoParaAtualizar.setNomeContato(banco.getNomeContato());
+		bancoParaAtualizar.setEmailContato(banco.getEmailContato());
+		bancoParaAtualizar.setTelefoneContato(banco.getTelefoneContato());
+		bancoParaAtualizar.setCargo(banco.getCargo());
+		bancoParaAtualizar.setSenha(banco.getSenha());
+
+		return repository.save(bancoParaAtualizar);
+	}
 }

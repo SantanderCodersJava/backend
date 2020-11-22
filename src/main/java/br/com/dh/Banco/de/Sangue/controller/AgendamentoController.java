@@ -47,8 +47,8 @@ public class AgendamentoController {
 	 public Agendamento atualizar(@PathVariable Integer id,@RequestBody Agendamento agendamento){
 		 Agendamento agendamentoParaAtualizar = repository.findById(id).get();
 		 
-		 agendamentoParaAtualizar.setId_agendamento(id);
-		 agendamentoParaAtualizar.setData_agendamento(agendamento.getData_agendamento());
+		 agendamentoParaAtualizar.setId(id);
+		 agendamentoParaAtualizar.setDataAgendamento(agendamento.getDataAgendamento());
 		 agendamentoParaAtualizar.setStatus(agendamento.isStatus());
 		 
 		 return repository.save(agendamentoParaAtualizar);

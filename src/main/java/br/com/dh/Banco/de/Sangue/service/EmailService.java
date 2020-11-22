@@ -12,10 +12,9 @@ import org.springframework.stereotype.Service;
 
 import br.com.dh.Banco.de.Sangue.utils.Mail;
 
-
-
 @Service
 public class EmailService {
+	
 	@Autowired
 	private JavaMailSender emailSender;
 	

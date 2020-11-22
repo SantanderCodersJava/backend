@@ -23,38 +23,37 @@ import br.com.dh.Banco.de.Sangue.repository.NewsletterRepository;
 @RequestMapping(value = "/newsletter")
 public class NewsleterController {
 
-		@Autowired
-		private NewsletterRepository repository;
-		
-				
-		@GetMapping
-		public List<Newsletter> listarTodos(){
-			return repository.findAll();
-		}
-		
-		@ResponseStatus(HttpStatus.CREATED)
-		@PostMapping
-		public Newsletter cadastrar (@RequestBody Newsletter newsletter) {
-			return repository.save(newsletter);
-		}
-		
-		@DeleteMapping(value = "/{id}")
-			public void deletar(@PathVariable Integer id) {
-				repository.deleteById(id);
-			}
-		
-		@PutMapping(value = "/{id}")
-		public Newsletter atualizar(@PathVariable Integer id,@RequestBody Newsletter newsletter){
-			Newsletter newsletterParaAtualizar = repository.findById(id).get();
-			
-			newsletterParaAtualizar.setId_newsletter(id);
-			newsletterParaAtualizar.setTitulo(newsletter.getTitulo());
-			newsletterParaAtualizar.setDestinatario(newsletter.getDestinatario());
-			newsletterParaAtualizar.setObservacao(newsletter.getObservacao());
-			newsletterParaAtualizar.setData(newsletter.getData());
-			
-			return repository.save(newsletterParaAtualizar);
-			
-		}
-		
+	@Autowired
+	private NewsletterRepository repository;
+
+	@GetMapping
+	public List<Newsletter> listarTodos() {
+		return repository.findAll();
+	}
+
+	@ResponseStatus(HttpStatus.CREATED)
+	@PostMapping
+	public Newsletter cadastrar(@RequestBody Newsletter newsletter) {
+		return repository.save(newsletter);
+	}
+
+	@DeleteMapping(value = "/{id}")
+	public void deletar(@PathVariable Integer id) {
+		repository.deleteById(id);
+	}
+
+	@PutMapping(value = "/{id}")
+	public Newsletter atualizar(@PathVariable Integer id, @RequestBody Newsletter newsletter) {
+		Newsletter newsletterParaAtualizar = repository.findById(id).get();
+
+		newsletterParaAtualizar.setId(id);
+		newsletterParaAtualizar.setTitulo(newsletter.getTitulo());
+		newsletterParaAtualizar.setDestinatario(newsletter.getDestinatario());
+		newsletterParaAtualizar.setObservacao(newsletter.getObservacao());
+		newsletterParaAtualizar.setData(newsletter.getData());
+
+		return repository.save(newsletterParaAtualizar);
+
+	}
+
 }

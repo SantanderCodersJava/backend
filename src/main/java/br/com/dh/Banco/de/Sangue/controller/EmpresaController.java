@@ -28,69 +28,66 @@ import br.com.dh.Banco.de.Sangue.utils.FileUploadUtil;
 @RestController
 @RequestMapping(value = "/empresas")
 public class EmpresaController {
-	
+
 	@Autowired
-    private EmpresaRepository repository;
-	
+	private EmpresaRepository repository;
+
 	@GetMapping
-    public List<Empresa> listarTodos(){
-        return repository.findAll();
-    }
-	
+	public List<Empresa> listarTodos() {
+		return repository.findAll();
+	}
+
 	@ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
-    public Empresa cadastrar(@RequestBody Empresa empresa){
+	@PostMapping
+	public Empresa cadastrar(@RequestBody Empresa empresa) {
 		empresa.setEnderecos(empresa.getEnderecos());
-        return repository.save(empresa);
-    }
-	
+		return repository.save(empresa);
+	}
 
-    @CrossOrigin
-    @PostMapping("/upload")
-    public String saveFile(@RequestParam("image") MultipartFile file) {
-    	String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-    	String uploadDir = "files";
-    	Date date = new Date();
-    	String filePrefix = date.getTime() + "-";
-    	
-    	fileName = filePrefix + fileName;
-    	
-    	try {
-    		FileUploadUtil.saveFile(uploadDir, fileName, file);
-    	}
-    	catch(IOException e) {
-    		System.out.println("O arquivo não foi salvo" + e);
-    		return "Error: " + e; 
-    	}
-    	
-    	System.out.println("O arquivo foi salvo");
-    	return uploadDir + "/" + fileName;
-    }
-	
-	
+	@CrossOrigin
+	@PostMapping("/upload")
+	public String saveFile(@RequestParam("image") MultipartFile file) {
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		String uploadDir = "files";
+		Date date = new Date();
+		String filePrefix = date.getTime() + "-";
+
+		fileName = filePrefix + fileName;
+
+		try {
+			FileUploadUtil.saveFile(uploadDir, fileName, file);
+		} catch (IOException e) {
+			System.out.println("O arquivo não foi salvo" + e);
+			return "Error: " + e;
+		}
+
+		System.out.println("O arquivo foi salvo");
+		return uploadDir + "/" + fileName;
+	}
+
 	@DeleteMapping(value = "/{id}")
-    public void deletar(@PathVariable Integer id){
-        repository.deleteById(id);
-    }
-	
+	public void deletar(@PathVariable Integer id) {
+		repository.deleteById(id);
+	}
+
 	@PutMapping(value = "/{id}")
-    public Empresa atualizar(@PathVariable Integer id ,@RequestBody Empresa empresa){
+	public Empresa atualizar(@PathVariable Integer id, @RequestBody Empresa empresa) {
 
-        Empresa empresaParaAtualizar = repository.findById(id).get();
+		Empresa empresaParaAtualizar = repository.findById(id).get();
 
-        empresaParaAtualizar.setId_empresa(id);
-        empresaParaAtualizar.setRazao_social(empresa.getRazao_social());
-        empresaParaAtualizar.setEmail_empresa(empresa.getEmail_empresa());
-        empresaParaAtualizar.setCnpj_empresa(empresa.getCnpj_empresa());
-        empresaParaAtualizar.setTelefone_1(empresa.getTelefone_1());
-        empresaParaAtualizar.setTelefone_2(empresa.getTelefone_2());
-        empresaParaAtualizar.setData_fundacao(empresa.getData_fundacao());
-        empresaParaAtualizar.setInscricao_estadual(empresa.getInscricao_estadual());
-        empresaParaAtualizar.setNome_contato(empresa.getNome_contato());
-        empresaParaAtualizar.setEmail_contato(empresa.getEmail_contato());
-        empresaParaAtualizar.setQuantidade_colaboradores(empresa.getQuantidade_colaboradores());
+		empresaParaAtualizar.setId(id);
+		empresaParaAtualizar.setRazaoSocial(empresa.getRazaoSocial());
+		empresaParaAtualizar.setEmailEmpresa(empresa.getEmailEmpresa());
+		empresaParaAtualizar.setCnpjEmpresa(empresa.getCnpjEmpresa());
+		empresaParaAtualizar.setTelefone1(empresa.getTelefone1());
+		empresaParaAtualizar.setTelefone2(empresa.getTelefone2());
+		empresaParaAtualizar.setDataFundacao(empresa.getDataFundacao());
+		empresaParaAtualizar.setInscricaoEstadual(empresa.getInscricaoEstadual());
+		empresaParaAtualizar.setNomeContato(empresa.getNomeContato());
+		empresaParaAtualizar.setEmailContato(empresa.getEmailContato());
+		empresaParaAtualizar.setQuantidadeColaboradores(empresa.getQuantidadeColaboradores());
 
-        return repository.save(empresaParaAtualizar);
-    }
+		return repository.save(empresaParaAtualizar);
+	}
 
 }

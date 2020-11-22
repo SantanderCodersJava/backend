@@ -10,64 +10,30 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.com.dh.Banco.de.Sangue.enums.Sangue;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name="tiposanguineo")
 @Entity
 public class TipoSanguineo {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id_tipo_sanguineo;
-	@Column
-	private Sangue tipoDeSangue;
+	@Column(name =  "id_tipo_sanguineo")
+	private Integer id;	
 	
-	private Integer quantidade_tipo;
+	@Column(name = "tipo_de_sangue")
+	private Sangue tipoDeSangue;	
 	
-	public Integer getId_tipo_sanguineo() {
-		return id_tipo_sanguineo;
-	}
-
+	@Column(name = "quantidade_tipo")
+	private Integer quantidadeTipo;
+	
 	@ManyToOne
 	@JoinColumn(name="id_banco")
-	private BancoDeSangue bancosangue;
+	private BancoDeSangue bancoSangue;
 	
-	@Override
-	public String toString() {
-		return "TipoSanguineo [id_tipo_sanguineo=" + id_tipo_sanguineo + ", tipoDeSangue=" + tipoDeSangue + "]";
-	}
-
-
-	public void setId_tipo_sanguineo(Integer id_tipo_sanguineo) {
-		this.id_tipo_sanguineo = id_tipo_sanguineo;
-	}
-
-	
-	public Sangue getTipoDeSangue() {
-		return tipoDeSangue;
-	}
-
-
-	public void setTipoDeSangue(Sangue tipoDeSangue) {
-		this.tipoDeSangue = tipoDeSangue;
-	}
-
-
-	public TipoSanguineo() {}
-
-	public TipoSanguineo(Integer Quantidade_tipo) {
-		this.quantidade_tipo = Quantidade_tipo;
-	}
-
-	public Integer getQuantidade_tipo() {
-		return quantidade_tipo;
-	}
-
-
-	public void setQuantidade_tipo(Integer quantidade_tipo) {
-		this.quantidade_tipo = quantidade_tipo;
-	}
-	
-	
-
-	
-
 }

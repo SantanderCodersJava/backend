@@ -34,7 +34,6 @@ public class DoadorServiceImpl implements UserDetailsService {
     public Doador cadastrar(Doador doador) {
         String senhaCriptografada = passwordEncoder.encode(doador.getSenha());
         doador.setSenha(senhaCriptografada);
-        doador.setEnderecos(doador.getEnderecos());
         return doadorRepository.save(doador);
     }
 
@@ -69,10 +68,11 @@ public class DoadorServiceImpl implements UserDetailsService {
     
     public void recoverPassword(ForgottenPasswordDTO dto) {
     	Optional<Doador> userOpt = doadorRepository.findByEmail(dto.getEmail());
+    	
     	if(userOpt.isPresent()) {
     		Doador doador = userOpt.get();
     		String token = jwtService.gerarToken(doador);
-    		
+   	
     		Mail mail = new Mail();
     		mail.setTo(dto.getEmail());
     		mail.setSubject("Recuperação de senha - Doo Amor");

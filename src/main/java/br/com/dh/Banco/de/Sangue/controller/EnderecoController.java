@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import br.com.dh.Banco.de.Sangue.model.Endereco;
 import br.com.dh.Banco.de.Sangue.repository.EnderecoRepository;
 
@@ -24,65 +23,58 @@ import br.com.dh.Banco.de.Sangue.repository.EnderecoRepository;
 @RestController
 @RequestMapping(value = "/enderecos")
 public class EnderecoController {
-	
+
 	@Autowired
 	private EnderecoRepository enderecoRepository;
-	
+
 	@Autowired
-    private PasswordEncoder passwordEncoder;
-	
+	private PasswordEncoder passwordEncoder;
+
 	@GetMapping
 	public List<Endereco> listarTodos() {
 		return enderecoRepository.findAll();
 	}
-	
+
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
-	public Endereco cadastrar(@RequestBody Endereco endereco){
-		endereco.setEmpresa(endereco.getEmpresa());		
-		
-		if(endereco.getBancosangue() != null) {
-			String senhaCriptografada = passwordEncoder.encode(endereco.getBancosangue().getSenha());
-		    endereco.getBancosangue().setSenha(senhaCriptografada);		        
+	public Endereco cadastrar(@RequestBody Endereco endereco) {
+
+		if (endereco.getBancoSangue() != null) {
+			String senhaCriptografada = passwordEncoder.encode(endereco.getBancoSangue().getSenha());
+			endereco.getBancoSangue().setSenha(senhaCriptografada);
 		}
-		
-		if(endereco.getDoador() != null) {
+
+		if (endereco.getDoador() != null) {
 			String senhaCriptografada = passwordEncoder.encode(endereco.getDoador().getSenha());
-		    endereco.getDoador().setSenha(senhaCriptografada);		        
+			endereco.getDoador().setSenha(senhaCriptografada);
 		}
-				
-		
-		endereco.setBancosangue(endereco.getBancosangue());
-		endereco.setDoador(endereco.getDoador());
-		
-        return enderecoRepository.save(endereco);
+
+		return enderecoRepository.save(endereco);
 	}
 
 	@DeleteMapping(value = "/{id}")
-	public void deletar(@PathVariable Integer id){
+	public void deletar(@PathVariable Integer id) {
 		enderecoRepository.deleteById(id);
 	}
 
 	@PutMapping(value = "/{id}")
-	public Endereco atualizar(@PathVariable Integer id ,@RequestBody Endereco endereco){
+	public Endereco atualizar(@PathVariable Integer id, @RequestBody Endereco endereco) {
 
 		// pego o endereço do banco pelo id
-	    Endereco enderecoParaAtualizar = enderecoRepository.findById(id).get();
+		Endereco enderecoParaAtualizar = enderecoRepository.findById(id).get();
 
-	    // atualizo os dados com os novos dados que veio no requestBody
-	    enderecoParaAtualizar.setId_endereco(id);
-	    enderecoParaAtualizar.setRua(endereco.getRua());
-	    enderecoParaAtualizar.setNumero(endereco.getNumero());
-	    enderecoParaAtualizar.setComplemento(endereco.getComplemento());
-	    enderecoParaAtualizar.setBairro(endereco.getBairro());
-	    enderecoParaAtualizar.setCidade(endereco.getCidade());
-	    enderecoParaAtualizar.setEstado(endereco.getEstado());
-	    enderecoParaAtualizar.setCep(endereco.getCep());
-	    
-	    
-	    // retorno ele atualizado e salvado
-	    return enderecoRepository.save(enderecoParaAtualizar);
+		// atualizo os dados com os novos dados que veio no requestBody
+		enderecoParaAtualizar.setId(id);
+		enderecoParaAtualizar.setRua(endereco.getRua());
+		enderecoParaAtualizar.setNumero(endereco.getNumero());
+		enderecoParaAtualizar.setComplemento(endereco.getComplemento());
+		enderecoParaAtualizar.setBairro(endereco.getBairro());
+		enderecoParaAtualizar.setCidade(endereco.getCidade());
+		enderecoParaAtualizar.setEstado(endereco.getEstado());
+		enderecoParaAtualizar.setCep(endereco.getCep());
+
+		// retorno ele atualizado e salvado
+		return enderecoRepository.save(enderecoParaAtualizar);
 	}
-	
 
 }
