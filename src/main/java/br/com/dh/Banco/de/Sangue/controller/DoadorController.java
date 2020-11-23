@@ -3,6 +3,7 @@ package br.com.dh.Banco.de.Sangue.controller;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,6 +53,11 @@ public class DoadorController {
 		return repository.findAll();
 	}
 
+	@GetMapping(value = "/{email}")
+	public Optional<Doador> getDoador(@PathVariable String email) {
+		return repository.findOneByEmail(email);
+	}
+	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
 	public Doador cadastrar(@RequestBody Doador doador) {
