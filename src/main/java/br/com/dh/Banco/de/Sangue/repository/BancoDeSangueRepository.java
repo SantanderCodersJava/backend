@@ -8,4 +8,5 @@ import br.com.dh.Banco.de.Sangue.model.BancoDeSangue;
 
 public interface BancoDeSangueRepository extends JpaRepository <BancoDeSangue, Integer>{
 	Optional<BancoDeSangue> findByEmail(String email);
+	Optional<BancoDeSangue> findOneByEmail(String email);
 }
