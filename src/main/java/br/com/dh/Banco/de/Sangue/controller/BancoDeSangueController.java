@@ -74,7 +74,7 @@ public class BancoDeSangueController {
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
 		}
 	}
-
+	/*
 	@CrossOrigin
 	@PostMapping("/upload")
 	public String saveFile(@RequestParam("image") MultipartFile file) {
@@ -94,7 +94,7 @@ public class BancoDeSangueController {
 
 		System.out.println("O arquivo foi salvo");
 		return uploadDir + "/" + fileName;
-	}
+	}*/
 
 	@DeleteMapping(value = "/{id}")
 	public void deletar(@PathVariable Integer id) {
