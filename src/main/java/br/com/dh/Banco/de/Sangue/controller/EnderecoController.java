@@ -72,6 +72,7 @@ public class EnderecoController {
 		enderecoParaAtualizar.setCidade(endereco.getCidade());
 		enderecoParaAtualizar.setEstado(endereco.getEstado());
 		enderecoParaAtualizar.setCep(endereco.getCep());
+		enderecoParaAtualizar.setDoador(endereco.getDoador());
 
 		// retorno ele atualizado e salvado
 		return enderecoRepository.save(enderecoParaAtualizar);

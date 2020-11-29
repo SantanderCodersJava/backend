@@ -118,7 +118,8 @@ public class DoadorController {
 		doadorParaAtualizar.setSexo(doador.getSexo());
 		doadorParaAtualizar.setTelefone(doador.getTelefone());
 		doadorParaAtualizar.setTipoSanguineo(doador.getTipoSanguineo());
-
+		doadorParaAtualizar.setEnderecos(doador.getEnderecos());
+		
 		// retorno ele atualizado e salvado
 		return repository.save(doadorParaAtualizar);
 	}

@@ -49,11 +49,11 @@ public class Doador {
     @Column(name = "caminho_img")
     private String caminhoImg;       
 
-	@OneToMany(orphanRemoval = true, mappedBy = "doador")
+	@OneToMany( mappedBy = "doador")
     @JsonIgnoreProperties("doador")
     private List<Endereco> enderecos; 
     
-    @OneToMany(orphanRemoval = true, mappedBy = "doador")
+    @OneToMany( mappedBy = "doador")
     @JsonIgnoreProperties("doador")
     private List<Agendamento> agendamentos;
     
