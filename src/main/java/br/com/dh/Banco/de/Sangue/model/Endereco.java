@@ -34,6 +34,7 @@ public class Endereco {
 	private String cep; 
 	private String latitude; 
 	private String longitude;
+	private String regiao;
 	
 	@ManyToOne( cascade = CascadeType.ALL )
 	@JoinColumn(name="id_doador", referencedColumnName="id_doador")
