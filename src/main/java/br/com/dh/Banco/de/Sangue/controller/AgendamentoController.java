@@ -50,6 +50,7 @@ public class AgendamentoController {
 		 agendamentoParaAtualizar.setId(id);
 		 agendamentoParaAtualizar.setDataAgendamento(agendamento.getDataAgendamento());
 		 agendamentoParaAtualizar.setStatus(agendamento.isStatus());
+		 agendamentoParaAtualizar.setHorarioDoacao(agendamento.getHorarioDoacao());
 		 
 		 return repository.save(agendamentoParaAtualizar);
 	 }
