@@ -54,8 +54,11 @@ public class Empresa {
 	@Column(name = "email_contato")
     private String emailContato;
 	
-	@Column(name = "quantidade_colaboradore")
+	@Column(name = "quantidade_colaboradores")
     private String quantidadeColaboradores;
+	
+	@Column(name = "cargo_empresa")
+	private String cargoEmpresa;
     
     @OneToMany(mappedBy = "empresa")
     @JsonIgnoreProperties("empresa")
