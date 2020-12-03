@@ -48,23 +48,48 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
+		.cors().and()
 		.csrf().disable()              //camada de segurança para acessar a aplicação diretamente através de browser
 		.authorizeRequests()
-		
 			.antMatchers(HttpMethod.POST, "/doadores/**")
 			.permitAll()
-		
+			.antMatchers(HttpMethod.GET, "/doadores/**")
+			.permitAll()
+			.antMatchers(HttpMethod.POST, "/banco/**")
+			.permitAll()
+			.antMatchers(HttpMethod.GET, "/banco/**")
+			.permitAll()
 			.antMatchers(HttpMethod.POST, "/doadores")
         		.permitAll()
-        	.anyRequest().authenticated()
-        
-        .and()
-        	.sessionManagement()
-        	.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        
-        .and()
-        	.addFilterBefore( jwtFilter(), UsernamePasswordAuthenticationFilter.class);
-		;
+        	.antMatchers(HttpMethod.POST, "/banco")
+        		.permitAll()       
+        	.antMatchers(HttpMethod.POST, "/empresas/**")
+        		.permitAll()  
+        	.antMatchers(HttpMethod.POST, "/enderecos/**")
+        		.permitAll()
+        	.antMatchers(HttpMethod.POST, "/tiposanguineo/**")
+        		.permitAll()
+        	.antMatchers(HttpMethod.POST, "/storage/**")
+        		.permitAll()
+        	.antMatchers(HttpMethod.GET, "/storage/**")
+        		.permitAll()
+        	.antMatchers("/empresas")
+        		.permitAll()   
+        	.antMatchers(HttpMethod.POST, "/agendaamento/**")
+    			.permitAll()
+    		.antMatchers(HttpMethod.GET, "/agendamento/**")
+    			.permitAll()
+        	
+        	//.antMatchers("/banco")
+        	//	.permitAll()  
+        	
+        	.anyRequest().authenticated()        	         
+	        .and()
+	        	.sessionManagement()
+	        	.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+	         .and()
+	        	.addFilterBefore( jwtFilter(), UsernamePasswordAuthenticationFilter.class);
+
 	}
 	
 }

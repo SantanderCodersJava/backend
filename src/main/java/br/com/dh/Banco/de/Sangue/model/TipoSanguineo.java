@@ -19,7 +19,7 @@ public class TipoSanguineo {
 	private Integer id_tipo_sanguineo;
 	@Column
 	private Sangue tipoDeSangue;
-	
+	@Column
 	private Integer quantidade_tipo;
 	
 	public Integer getId_tipo_sanguineo() {

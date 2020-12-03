@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -49,7 +50,20 @@ public class AgendamentoController {
 		 agendamentoParaAtualizar.setData_agendamento(agendamento.getData_agendamento());
 		 agendamentoParaAtualizar.setStatus(agendamento.isStatus());
 		 
+		 
 		 return repository.save(agendamentoParaAtualizar);
+	 }
+	 
+	 @PatchMapping(value = "/{id}")
+	 public Agendamento atualiza(@PathVariable Integer id,@RequestBody Agendamento agendamento){
+		 Agendamento agendamentoParaAtualiza = repository.findById(id).get();
+		 
+		 agendamentoParaAtualiza.setId_agendamento(id);
+		 agendamentoParaAtualiza.setData_agendamento(agendamento.getData_agendamento());
+		 agendamentoParaAtualiza.setStatus(agendamento.isStatus());
+		 agendamentoParaAtualiza.setHoraio(agendamento.getHoraio());
+		 
+		 return repository.save(agendamentoParaAtualiza);
 	 }
 
 }
